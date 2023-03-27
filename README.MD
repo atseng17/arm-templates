@@ -88,7 +88,7 @@ Option2: zure portal > storage sccount> check if "myteststorageaccount0326" is o
 
 ```
 
-## Make templates reusable: Add parameters to ARM template
+## Make templates reusable: Add parameters(a kind of template expression) to ARM template
 
 ```
 Add parameter section to template
@@ -115,4 +115,13 @@ az deployment group create \
   --resource-group mytestResourceGroup \
   --template-file $templateFile \
   --parameters storageName=myteststorageaccount0326
+```
+
+Redeploy with sku as input argument for template
+```
+az deployment group create \
+  --name usenondefaultsku \
+  --resource-group mytestResourceGroup \
+  --template-file $templateFile \
+  --parameters storageSKU=Standard_GRS storageName=myteststorageaccount0326
 ```
