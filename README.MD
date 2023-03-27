@@ -151,3 +151,38 @@ az deployment group create \
   --template-file $templateFile \
   --parameters storageSKU=Standard_GRS storageName=myteststorageaccount0326
 ```
+
+## Make templates reusable: Further have location function in parameters
+Add variables (not sth you wanna set manually but will be changed based on the parameters and other values in the template)
+Again concat() and uniqueString() are two functions.
+
+```
+Add storage prefix in parameters
+
+    "storagePrefix": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 11
+    },
+
+Add variable section
+
+  "variables": {
+    "uniqueStorageName": "[concat(parameters('storagePrefix'), uniqueString(resourceGroup().id))]"
+  },
+
+change resources.name
+
+"name": "[variables('uniqueStorageName')]",
+```
+
+
+Deploy
+
+```
+az deployment group create \
+  --name addnamevariable \
+  --resource-group mytestResourceGroup \
+  --template-file $templateFile \
+  --parameters storagePrefix=store storageSKU=Standard_LRS
+```
