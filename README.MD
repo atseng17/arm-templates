@@ -154,10 +154,11 @@ az deployment group create \
 
 ## Make templates reusable: Further have location function in parameters
 Add variables (not sth you wanna set manually but will be changed based on the parameters and other values in the template)
+and remove the storage name in parameters, we do this because we dont want to manually set the unique storage name
 Again concat() and uniqueString() are two functions.
 
 ```
-Add storage prefix in parameters
+Change storage name to storage prefix in parameters
 
     "storagePrefix": {
       "type": "string",
