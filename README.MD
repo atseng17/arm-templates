@@ -1,5 +1,7 @@
 # ARM-templates
 
+Important note:  Keys in the template JSON are recognized by the Azure Reource Manager(ARM), so the keys have to match exactly what ARM is looking for. 
+
 ## Create a resource group with ARM-template
 Start with a deployment with not resources
 
@@ -207,8 +209,10 @@ Add outputs section in json
 Deploy
 ```
 az deployment group create \
-  --name addnamevariable \
+  --name addoutputs \
   --resource-group mytestResourceGroup \
   --template-file $templateFile \
   --parameters storagePrefix=store storageSKU=Standard_LRS
 ```
+
+Note that the outputs will show up in the UI.
