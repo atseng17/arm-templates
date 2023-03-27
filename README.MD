@@ -1,6 +1,6 @@
 # ARM-templates
 
-## Example of creating a resource group with ARM-template
+## Create a resource group with ARM-template
 Start with a deployment with not resources
 
 ```
@@ -37,7 +37,7 @@ Azure portal > Resource groups > Check the box next to myResourceGroup and selec
 ```
 
 
-## Add a resource to your ARM template
+## Add a resource to ARM-template
 Every resource you deploy has at least the following three properties:
 
 - type: Type of the resource. This value is a combination of the namespace of the resource provider and the resource type such as Microsoft.Storage/storageAccounts.
@@ -86,4 +86,33 @@ Option1: Azure portal > Resource groups > select myResourceGroup > setect mytest
 
 Option2: zure portal > storage sccount> check if "myteststorageaccount0326" is over there in the list of storage accounts
 
+```
+
+## Make templates reusable: Add parameters to ARM template
+
+```
+Add parameter section to template
+
+  "parameters": {
+    "storageName": {
+      "type": "string",
+      "minLength": 3,
+      "maxLength": 24
+    }
+  },
+
+
+change value for name 
+
+  "name": "[parameters('storageName')]",
+```
+
+If the resource already exists, and there's no change in the properties, there's no need for further action. If the resource exists and a property changes, it updates. If the resource doesn't exist, it's created.
+
+```
+az deployment group create \
+  --name addnameparameter \
+  --resource-group mytestResourceGroup \
+  --template-file $templateFile \
+  --parameters storageName=myteststorageaccount0326
 ```
