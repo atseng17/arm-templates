@@ -187,3 +187,28 @@ az deployment group create \
   --template-file $templateFile \
   --parameters storagePrefix=store storageSKU=Standard_LRS
 ```
+
+## Make templates return outputs (the "outputs" key in template)
+Use the `reference()` function to get return values from the template. One can set an "outputs" key in the json with values with reference function.
+
+```
+Add outputs section in json
+
+  "outputs": {
+    "storageEndpoint": {
+      "type": "object",
+      "value": "[reference(variables('uniqueStorageName')).primaryEndpoints]"
+    }
+  }
+
+```
+
+
+Deploy
+```
+az deployment group create \
+  --name addnamevariable \
+  --resource-group mytestResourceGroup \
+  --template-file $templateFile \
+  --parameters storagePrefix=store storageSKU=Standard_LRS
+```
