@@ -216,3 +216,15 @@ az deployment group create \
 ```
 
 Note that the outputs will show up in the UI.
+
+# Add app service plan
+App Service plans give you the flexibility to allocate specific apps to a given set of resources and further optimize your Azure resource utilization. 
+
+Once can first use the UI to understand what are in input parameters for a service plan
+Azure portal > App Service Plan > Create  
+Wait until its deployed, then go to exposrt template on sidebar
+
+
+Validate is deployment is succesful
+
+The resource group contains a storage account and an App Service Plan.
