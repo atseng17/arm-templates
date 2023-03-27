@@ -1,6 +1,7 @@
 # ARM-templates
 
 ## Example of creating a resource group with ARM-template
+Start with a deployment with not resources
 
 ```
 # log on to azure portal
@@ -33,4 +34,56 @@ Option2: Azure portal > Resource groups > select myResourceGroup > setect mytest
 # Clean up resources
 
 Azure portal > Resource groups > Check the box next to myResourceGroup and select mytestResourceGroup > Delete 
+```
+
+
+## Add a resource to your ARM template
+Every resource you deploy has at least the following three properties:
+
+- type: Type of the resource. This value is a combination of the namespace of the resource provider and the resource type such as Microsoft.Storage/storageAccounts.
+- apiVersion: Version of the REST API to use for creating the resource. Each resource - - provider publishes its own API versions, so this value is specific to the type.
+name: Name of the resource.
+
+Two important porints here:
+- Many of the properties are optional. No need to add all of them.
+- The resource provider could release a new API version, but the version you're deploying doesn't have to change. 
+
+```
+# find parameters for each resource here
+https://learn.microsoft.com/en-us/azure/templates/
+
+# for example the required parameters for storage account can be found there
+https://learn.microsoft.com/en-us/azure/templates/microsoft.storage/storageaccounts?pivots=deployment-language-arm-template
+
+# Add the following resource in json
+
+    {
+      "type": "Microsoft.Storage/storageAccounts",
+      "apiVersion": "2021-09-01",
+      "name": "myteststorageaccount0326",
+      "location": "eastus",
+      "sku": {
+        "name": "Standard_LRS"
+      },
+      "kind": "StorageV2",
+      "properties": {
+        "supportsHttpsTrafficOnly": true
+      }
+    }
+
+# Deploy template
+templateFile="templates/azuredeploy.json"
+az deployment group create \
+  --name addstorage \
+  --resource-group mytestResourceGroup \
+  --template-file $templateFile
+
+
+
+# Verify deployment
+
+Option1: Azure portal > Resource groups > select myResourceGroup > setect mytestResourceGroup > in the Essentials section, search for "Deployments: 2 Succeeded".
+
+Option2: zure portal > storage sccount> check if "myteststorageaccount0326" is over there in the list of storage accounts
+
 ```
