@@ -37,7 +37,7 @@ Azure portal > Resource groups > Check the box next to myResourceGroup and selec
 ```
 
 
-## Add a resource to ARM-template
+## Add a resource to ARM-template  (The "resource" key in template)
 Every resource you deploy has at least the following three properties:
 
 - type: Type of the resource. This value is a combination of the namespace of the resource provider and the resource type such as Microsoft.Storage/storageAccounts.
@@ -88,7 +88,7 @@ Option2: zure portal > storage sccount> check if "myteststorageaccount0326" is o
 
 ```
 
-## Make templates reusable: Add parameters to ARM template
+## Make templates reusable: Add parameters to ARM template (The "parameter" key in template)
 Note here the brackets means a template expression, where `parameters` is a function.
 
 ```
@@ -152,7 +152,7 @@ az deployment group create \
   --parameters storageSKU=Standard_GRS storageName=myteststorageaccount0326
 ```
 
-## Make templates reusable: Further have location function in parameters
+## Make templates reusable: Having variables  (The "variables" key in template)
 Add variables (not sth you wanna set manually but will be changed based on the parameters and other values in the template)
 and remove the storage name in parameters, we do this because we dont want to manually set the unique storage name
 Again concat() and uniqueString() are two functions.
