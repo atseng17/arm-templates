@@ -228,3 +228,21 @@ Wait until its deployed, then go to exposrt template on sidebar
 Validate is deployment is succesful
 
 The resource group contains a storage account and an App Service Plan.
+
+
+# Add web app (in this case, a website)
+
+This is an example of using [quick start templates](https://learn.microsoft.com/en-us/samples/browse/?expanded=azure&products=azure-resource-manager).
+
+
+Add a Microsoft.Web/sites resource under "resource" key in template, along with its accociated variables and parameters.
+
+Deploy
+
+```
+az deployment group create \
+  --name addwebapp \
+  --resource-group mytestResourceGroup \
+  --template-file $templateFile \
+  --parameters storagePrefix=store storageSKU=Standard_LRS webAppName=demoapp
+  ```
