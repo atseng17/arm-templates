@@ -245,4 +245,17 @@ az deployment group create \
   --resource-group mytestResourceGroup \
   --template-file $templateFile \
   --parameters storagePrefix=store storageSKU=Standard_LRS webAppName=demoapp
-  ```
+```
+
+# Add resource tags 
+
+This section adds tags to each resource under the "resource" key in the template. The resource tag context is set in the parameter section.
+
+Deploly
+```
+az deployment group create \
+  --name addwebapp \
+  --resource-group mytestResourceGroup \
+  --template-file $templateFile \
+  --parameters storagePrefix=store storageSKU=Standard_LRS webAppName=demoapp
+```

@@ -42,6 +42,13 @@
       "metadata": {
         "description": "The Runtime stack of current web app"
       }
+    },
+    "resourceTags": {
+      "type": "object",
+      "defaultValue": {
+        "Environment": "Dev",
+        "Project": "Tutorial"
+      }
     }
   },
   "variables": {
@@ -54,6 +61,7 @@
       "apiVersion": "2021-09-01",
       "name": "[variables('uniqueStorageName')]",
       "location": "[parameters('location')]",
+      "tags": "[parameters('resourceTags')]",
       "sku": {
         "name": "[parameters('storageSKU')]"
       },
@@ -67,6 +75,7 @@
       "apiVersion": "2021-03-01",
       "name": "[parameters('appServicePlanName')]",
       "location": "[parameters('location')]",
+      "tags": "[parameters('resourceTags')]",
       "sku": {
         "name": "B1",
         "tier": "Basic",
@@ -88,8 +97,9 @@
       "name": "[variables('webAppPortalName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
+        "[parameters('appServicePlanName')]"
       ],
+      "tags": "[parameters('resourceTags')]",
       "kind": "app",
       "properties": {
         "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', parameters('appServicePlanName'))]",
