@@ -259,3 +259,33 @@ az deployment group create \
   --template-file $templateFile \
   --parameters storagePrefix=store storageSKU=Standard_LRS webAppName=demoapp
 ```
+
+# Add parameter file for better automation
+
+Within the parameter file, you provide values for the parameters in your template. The name of each parameter in your parameter file needs to match the name of a parameter in your template. The name is case-insensitive but to easily see the matching values we recommend that you match the casing from the template.
+
+Deploy
+```
+templateFile="templates/azuredeploy.json"
+devParameterFile="templates/azuredeploy.parameters.prod.json"
+
+az group create \
+  --name myResourceGroupDev \
+  --location "East US"
+az deployment group create \
+  --name devenvironment \
+  --resource-group myResourceGroupDev \
+  --template-file $templateFile \
+  --parameters $devParameterFile
+
+
+prodParameterFile="templates/azuredeploy.parameters.prod.json"
+az group create \
+  --name myResourceGroupProd \
+  --location "West US"
+az deployment group create \
+  --name prodenvironment \
+  --resource-group myResourceGroupProd \
+  --template-file $templateFile \
+  --parameters $prodParameterFile
+```
